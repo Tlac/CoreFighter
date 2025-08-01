@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-(u1e1()8@3qz-i@*ijdq662fv_ih*ppyqec+n$y(7n8@rsxwqu"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "decks",
 ]
 
 MIDDLEWARE = [
@@ -76,8 +77,8 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "gundamtcgdb",
-        "USER": "admin",
-        "PASSWORD": "password",
+        "USER": "gundamadmin",
+        "PASSWORD": "gundampassword",
         "HOST": "localhost",
         "PORT": "5432",
     }
