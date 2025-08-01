@@ -1,0 +1,25 @@
+[project]
+name = "server"
+version = "0.1.0"
+description = "Deck builder and stats view for Gundam TCG game"
+authors = [
+    {name = "Tlac",email = "thomaslac912@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "django (>=5.2.4,<6.0.0)",
+    "djangorestframework (>=3.16.0,<4.0.0)",
+    "psycopg2 (>=2.9.10,<3.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.4.1"
+black = "^25.1.0"
+isort = "^6.0.1"
+
