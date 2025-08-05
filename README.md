@@ -8,3 +8,28 @@ source .venv/bin/activate
 pip install poetry
 poetry install
 ```
+
+
+### To-do list
+
+#### Frontend
+- [ ] Add home page (A little blurb about what the site is, featured decks)
+- [ ] Add create account and login page
+- [ ] Add decklist creator page
+- [ ] Add stats page
+  - [ ] Add bar chart showing spread of card cost
+  - [ ] Add bar chart showing spread of card levels
+  - [ ] Add pie chart showing amount of cards in each colour
+  - [ ] Add pie chart showing amount of different card types (Unit, Pilot, Command/Pilot, Command)
+  - [ ] Brainstorm section to show cards that can link
+    - [ ] Add section
+
+#### Backend
+- [x] Add Gundam Card Model
+- [x] Add DeckList Model
+- [ ] Add GET/POST/UPDATE/DELETE decklist endpoint
+  - [ ] Add the appropriate serializers and views
+  - [ ] Add tests
+
+#### Other
+- [ ] Add CI/CD (Probably Github with Vercel integration)
