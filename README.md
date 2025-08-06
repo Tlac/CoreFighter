@@ -23,6 +23,9 @@ poetry install
   - [ ] Add pie chart showing amount of different card types (Unit, Pilot, Command/Pilot, Command)
   - [ ] Brainstorm section to show cards that can link
     - [ ] Add section
+- [ ] Add profile page
+  - [ ] Add username change logic
+  - [ ] Add user profile image section
 
 #### Backend
 - [x] Add Gundam Card Model
@@ -30,6 +33,8 @@ poetry install
 - [ ] Add GET/POST/UPDATE/DELETE decklist endpoint
   - [ ] Add the appropriate serializers and views
   - [ ] Add tests
+- [ ] Add user profile image url to user table
 
 #### Other
 - [ ] Add CI/CD (Probably Github with Vercel integration)
+- [ ] Set bucket in AWS for storing images
