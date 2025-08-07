@@ -14,12 +14,19 @@ class DeckListSerializer(serializers.ModelSerializer):
 
     def validate_cards(self, card_ids):
         cards = GundamCard.objects.filter(id__in=card_ids)
+        colours = {card.colour for card in cards}
+
         if len(cards) != len(set(card_ids)):
             raise serializers.ValidationError("Some card IDs are invalid.")
 
-        colours = {card.colour for card in cards}
+        if len(card_ids) != self.REQUIRED_NUMBER_OF_CARDS:
+            raise serializers.ValidationError("The deck requires 50 cards")
+
         if len(colours) > 3:
             raise serializers.ValidationError("A deck cannot contain more than 3 unique colours.")
+
+        if len(set(card_ids)) != len(cards):
+            raise serializers.ValidationError("Some cards are not valid")
 
         self.context['valid_cards'] = cards
         self.context['colours'] = list(colours)
@@ -27,25 +34,13 @@ class DeckListSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = self.context['request'].user
-        cards = self.context['valid_cards']
-
-        if len(cards) != self.REQUIRED_NUMBER_OF_CARDS:
-            raise serializers.ValidationError("The deck requires 50 cards")
-
+        colours = self.context['colours']
         card_ids = validated_data['cards']
-        db_cards = GundamCard.objects.filter(id__in=card_ids)
-
-        if len(cards) != len(set(card_ids)):
-            raise serializers.ValidationError("Some card IDs are invalid.")
-
-        colours = {card.colour for card in db_cards}
-        if len(colours) > 3:
-            raise serializers.ValidationError("A deck cannot contain more than 3 unique colours.")
 
         deck = DeckList.objects.create(
             name=validated_data['name'],
             created_by=user,
-            cards=[card.id for card in cards],
+            cards=card_ids,
             colours=colours,
             is_private=validated_data.get('is_private', True),
         )

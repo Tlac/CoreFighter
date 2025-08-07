@@ -43,7 +43,7 @@ class DeckList(models.Model):
     cards = models.JSONField()
     colours = models.JSONField()
     is_private = models.BooleanField(default=True)
-    vote_count = models.IntegerField()
+    vote_count = models.IntegerField(default=0)
 
     def clean(self):
         # Validate that colours contains only 1 or 2 valid choices
