@@ -1,10 +1,7 @@
-from django.urls import path
-from .views import (
-    DeckListCreateView,
-    DeckListRetrieveUpdateDeleteView,
-)
+from rest_framework.routers import DefaultRouter
+from .views import DeckListViewSet
 
-urlpatterns = [
-    path('', DeckListCreateView.as_view(), name='deck-create'),
-    path('<uuid:pk>/', DeckListRetrieveUpdateDeleteView.as_view(), name='deck-detail'),
-]
+router = DefaultRouter()
+router.register(r'', DeckListViewSet, basename='deck')
+
+urlpatterns = router.urls

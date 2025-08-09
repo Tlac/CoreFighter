@@ -1,26 +1,26 @@
-from rest_framework import generics, permissions
-from .models import DeckList
-from .serializers import DeckListSerializer
+from rest_framework import viewsets, permissions
 from rest_framework.exceptions import PermissionDenied
+from .models import DeckList
+from .serializers import DeckListCreateSerializer, DeckListUpdateSerializer
 
 
-class DeckListCreateView(generics.CreateAPIView):
+class DeckListViewSet(viewsets.ModelViewSet):
     queryset = DeckList.objects.all()
-    serializer_class = DeckListSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-
-class DeckListRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = DeckList.objects.all()
-    serializer_class = DeckListSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return DeckListCreateSerializer
+        elif self.action in ['update', 'partial_update']:
+            return DeckListUpdateSerializer
+        return DeckListUpdateSerializer  # could also have a read-only serializer for retrieve/list
 
     def get_object(self):
         deck = super().get_object()
         user = self.request.user
 
-        if self.request.method == 'GET' and deck.is_private and deck.created_by != user:
+        if self.action == 'retrieve' and deck.is_private and deck.created_by != user:
             raise PermissionDenied("This deck is private.")
-        elif self.request.method in ['PUT', 'PATCH', 'DELETE'] and deck.created_by != user:
+        elif self.action in ['update', 'partial_update', 'destroy'] and deck.created_by != user:
             raise PermissionDenied("You can only modify your own decks.")
         return deck
