@@ -3,3 +3,18 @@
 server/.venv/
 **/__pycache__/
 **/management/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/.DS_Store
+frontend/*.log
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
+frontend/.vscode/
+frontend/.idea/
