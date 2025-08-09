@@ -11,7 +11,7 @@ from .serializers import (
 
 class DeckListViewSet(viewsets.ModelViewSet):
     queryset = DeckList.objects.all()
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def get_serializer_class(self):
         if self.action in ["retrieve", "list"]:
@@ -25,10 +25,11 @@ class DeckListViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         if self.action == "list":
-            return DeckList.objects.filter(
-                models.Q(is_private=False) | models.Q(created_by=user)
-            )
-
+            if user.is_authenticated:
+                return DeckList.objects.filter(
+                    models.Q(is_private=False) | models.Q(created_by=user)
+                )
+            return DeckList.objects.filter(is_private=False)
         return DeckList.objects.all()
 
     def get_object(self):
