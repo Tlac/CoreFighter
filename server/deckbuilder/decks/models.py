@@ -26,6 +26,7 @@ class GundamCard(models.Model):
     def __str__(self):
         return self.name
 
+
 class DeckList(models.Model):
     COLOUR_CHOICES = [
         ("green", "Green"),
@@ -39,7 +40,9 @@ class DeckList(models.Model):
     name = models.CharField(max_length=200)
     created = models.DateTimeField(auto_now_add=True)
     last_update = models.DateTimeField(auto_now=True)
-    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    created_by = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, blank=True
+    )
     cards = models.JSONField()
     colours = models.JSONField()
     is_private = models.BooleanField(default=True)

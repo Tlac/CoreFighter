@@ -3,8 +3,9 @@
 from django.db import migrations, models
 import json
 
+
 def prepare_zone_for_json(apps, schema_editor):
-    GundamCard = apps.get_model('decks', 'GundamCard')
+    GundamCard = apps.get_model("decks", "GundamCard")
 
     for card in GundamCard.objects.all():
         zone_str = card.zone.strip()
@@ -13,7 +14,8 @@ def prepare_zone_for_json(apps, schema_editor):
         else:
             zone_list = zone_str.split()
         card.zone = json.dumps(zone_list)
-        card.save(update_fields=['zone'])
+        card.save(update_fields=["zone"])
+
 
 class Migration(migrations.Migration):
 
