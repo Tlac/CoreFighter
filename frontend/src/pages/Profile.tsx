@@ -1,14 +1,7 @@
 import {useQuery} from "@tanstack/react-query"
 import {api} from "@/api/client"
 import {Link} from "react-router-dom"
-
-type Deck = {
-    id: string
-    name: string
-    is_private: boolean
-    colours: string[]
-    vote_count: number
-}
+import {Deck} from "@/types";
 
 export default function Profile() {
     const {data, isLoading, isError, error, refetch} = useQuery({

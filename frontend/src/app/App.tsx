@@ -6,6 +6,7 @@ import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import Logout from "@/pages/Logout";
 import Profile from "@/pages/Profile";
+import DeckDetail from "@/pages/DeckDetail";
 import NotFound from "@/pages/NotFound";
 
 export default function App() {
@@ -13,6 +14,7 @@ export default function App() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Home/>}/>
+                <Route path="/decks/:id" element={<DeckDetail/>}/>
 
                 <Route element={<GuestRoute/>}>
                     <Route path="/login" element={<Login/>}/>
