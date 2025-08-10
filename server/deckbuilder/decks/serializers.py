@@ -2,13 +2,13 @@ from rest_framework import serializers
 from .models import DeckList, GundamCard
 
 
-class BaseDeckListSerializer(serializers.ModelSerializer):
+class BaseDeckListEditSerializer(serializers.ModelSerializer):
     REQUIRED_NUMBER_OF_CARDS = 50
     MAX_COPIES_OF_CARDS = 4
     MIN_COPIES_OF_CARDS = 1
     MAX_UNIQUE_COLOURS = 2
 
-    cardlist = serializers.DictField(
+    cards = serializers.DictField(
         child=serializers.IntegerField(
             min_value=MIN_COPIES_OF_CARDS, max_value=MAX_COPIES_OF_CARDS
         ),
@@ -19,10 +19,10 @@ class BaseDeckListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = DeckList
-        fields = ["id", "name", "cardlist", "is_private"]
+        fields = ["id", "name", "cards", "is_private", "vote_count"]
         read_only_fields = ["id"]
 
-    def validate_cardlist(self, card_map):
+    def validate_cards(self, card_map):
         """
         Validates the incoming {card_id: qty} mapping.
         """
@@ -62,15 +62,15 @@ class BaseDeckListSerializer(serializers.ModelSerializer):
         return card_map
 
 
-class DeckListCreateSerializer(BaseDeckListSerializer):
-    class Meta(BaseDeckListSerializer.Meta):
-        extra_kwargs = {"cardlist": {"required": True}}
-        fields = list(BaseDeckListSerializer.Meta.fields)
+class DeckListCreateSerializer(BaseDeckListEditSerializer):
+    class Meta(BaseDeckListEditSerializer.Meta):
+        extra_kwargs = {"cards": {"required": True}}
+        fields = list(BaseDeckListEditSerializer.Meta.fields)
 
     def create(self, validated_data):
         user = self.context["request"].user
         colours = self.context["colours"]
-        cardlist = validated_data["cardlist"]
+        cardlist = validated_data["cards"]
 
         return DeckList.objects.create(
             name=validated_data["name"],
@@ -81,11 +81,11 @@ class DeckListCreateSerializer(BaseDeckListSerializer):
         )
 
 
-class DeckListUpdateSerializer(BaseDeckListSerializer):
+class DeckListUpdateSerializer(BaseDeckListEditSerializer):
     def validate(self, attrs):
         if not attrs:
             raise serializers.ValidationError(
-                "At least one of name, cardlist, or is_private must be provided."
+                "At least one of name, cards, or is_private must be provided."
             )
         return attrs
 
@@ -96,8 +96,8 @@ class DeckListUpdateSerializer(BaseDeckListSerializer):
                 "You are not allowed to update this deck."
             )
 
-        if "cardlist" in validated_data:
-            instance.cards = validated_data["cardlist"]
+        if "cards" in validated_data:
+            instance.cards = validated_data["cards"]
             instance.colours = self.context["colours"]
 
         if "name" in validated_data:
@@ -139,7 +139,7 @@ class DeckListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = DeckList
-        fields = ["id", "name", "is_private", "cards"]
+        fields = ["id", "name", "cards", "is_private", "colours", "vote_count"]
 
     def get_cards(self, obj):
         card_map = obj.cards
