@@ -8,10 +8,12 @@ import Logout from "@/pages/Logout";
 import Profile from "@/pages/Profile";
 import DeckDetail from "@/pages/DeckDetail";
 import NotFound from "@/pages/NotFound";
+import Navbar from "@/components/Navbar";
 
 export default function App() {
     return (
         <BrowserRouter>
+            <Navbar/>
             <Routes>
                 <Route path="/" element={<Home/>}/>
                 <Route path="/decks/:id" element={<DeckDetail/>}/>

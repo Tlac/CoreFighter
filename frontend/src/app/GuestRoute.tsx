@@ -1,6 +1,7 @@
 import {Navigate, Outlet} from "react-router-dom";
+import {useAuth} from "./AuthContext";
 
 export default function GuestRoute() {
-    const token = localStorage.getItem("accessToken");
-    return token ? <Navigate to="/profile" replace/> : <Outlet/>;
+    const {isAuthenticated} = useAuth();
+    return isAuthenticated ? <Navigate to="/profile" replace/> : <Outlet/>;
 }

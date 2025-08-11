@@ -8,8 +8,6 @@ type Props = {
 
 
 export default function CardTile({card, width = 160, onClick}: Props) {
-
-
     return (
         <div
             className="relative overflow-hidden shadow-md transition-transform duration-200 hover:scale-105 hover:shadow-lg"
