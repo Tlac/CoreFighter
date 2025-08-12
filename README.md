@@ -16,10 +16,10 @@ poetry install
 #### Frontend
 
 - [ ] Add home page (A little blurb about what the site is, featured decks)
-    - [ ] Add nav bar
-        - [ ] Add login button
-        - [ ] Add Profile button
-        - [ ] Add logout button
+    - [x] Add nav bar
+        - [x] Add login button
+        - [x] Add Profile button
+        - [x] Add logout button
     - [ ] Add public deck list page
 - [x] Add create account and login page
 - [ ] Add decklist creator page
@@ -31,7 +31,7 @@ poetry install
     - [ ] Brainstorm section to show cards that can link
         - [ ] Add section
 - [ ] Add profile page
-    - [ ] Add Deck list page
+    - [x] Add Deck list page
     - [ ] Add username change logic
     - [ ] Add user profile image section
 
