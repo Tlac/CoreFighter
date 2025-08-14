@@ -35,6 +35,11 @@ poetry install
     - [ ] Add username change logic
     - [ ] Add user profile image section
 
+#### Design
+
+- [ ] Create hexcode colour palette for the 5 main card colours
+- [ ] Create colour palette based on the Gundam unit
+
 #### Backend
 
 - [x] Add Gundam Card Model
