@@ -47,6 +47,7 @@ poetry install
 - [x] Add GET/POST/UPDATE/DELETE decklist endpoint
     - [x] Add the appropriate serializers and views
     - [ ] Add tests
+    - [ ] Add Factory Boy
 - [ ] Add user profile image url to user table
 
 #### Other
