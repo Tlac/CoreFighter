@@ -49,7 +49,6 @@ class DeckList(models.Model):
     vote_count = models.IntegerField(default=0)
 
     def clean(self):
-        # Validate that colours contains only 1 or 2 valid choices
         if not isinstance(self.colours, list):
             raise ValidationError("Colours must be a list.")
         if not (1 <= len(self.colours) <= 2):

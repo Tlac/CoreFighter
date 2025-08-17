@@ -67,6 +67,16 @@ class DeckListCreateSerializer(BaseDeckListEditSerializer):
         extra_kwargs = {"cards": {"required": True}}
         fields = list(BaseDeckListEditSerializer.Meta.fields)
 
+    def to_representation(self, instance):
+        return {
+            "id": instance.id,
+            "name": instance.name,
+            "cards": instance.cards,
+            "is_private": instance.is_private,
+            "created_by": instance.created_by.username,
+            "colours": instance.colours,
+        }
+
     def create(self, validated_data):
         user = self.context["request"].user
         colours = self.context["colours"]
